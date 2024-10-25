@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Filter Search Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color:#f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5d0271db;
+        }
+
+        #searchInput {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            font-size: 16px;
+            border: 3px solid black;
+            border-radius: 35px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .gallery-item {
+            width: 215px;
+            text-align: center;
+            background-color: #edd0e4;
+            padding: 10px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .gallery-item p {
+            margin-top: 8px;
+            font-size: 17px;
+            color: #5d0271db;
+        }
+
+        .no-result {
+            text-align: center;
+            color: red;
+            font-size: 18px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Popular Places</h1>
+
+    <input type="text" id="searchInput" placeholder="Search images..." onkeyup="filterImages()">
+
+    <div class="gallery" id="imageGallery">
+       
+        <div class="gallery-item" data-keywords="maldives">
+            <img src="https://i.pinimg.com/564x/c9/ab/ee/c9abee7ed72cc72b679f2423d9dbb5da.jpg" alt="maldives">
+            <p>sun iland</p>
+        </div>
+        <div class="gallery-item" data-keywords="maldives">
+            <img src="https://i.pinimg.com/564x/86/14/e0/8614e0da70b05d9780772a84eb06e48e.jpg" alt="maldives">
+            <p>glowing beach</p>
+        </div> <div class="gallery-item" data-keywords="maldives">
+            <img src="https://i.pinimg.com/564x/46/eb/c8/46ebc8f4b203ec122c0a0ec9fc324856.jpg" alt="maldives">
+            <p>Kurumba</p>
+        </div> <div class="gallery-item" data-keywords="maldives">
+            <img src="https://i.pinimg.com/564x/76/37/46/763746123dd24a5ad6d40d6f49148d2a.jpg" alt="maldives">
+            <p>Velassaru</p>
+        </div>
+        <div class="gallery-item" data-keywords="london">
+            <img src="https://i.pinimg.com/564x/23/4f/d6/234fd6cf1b974cff790b6fe6ffcdacb8.jpg" alt="london">
+            <p>Paul's Cathedral</p>
+        </div><div class="gallery-item" data-keywords="london">
+            <img src="https://i.pinimg.com/564x/80/3d/8d/803d8db70c3b4f71bd6723dda0e4561f.jpg" alt="london">
+            <p>london eye</p>
+        </div><div class="gallery-item" data-keywords="london">
+            <img src="https://i.pinimg.com/564x/1e/d9/80/1ed9805de58d93f0903431d05584dcbd.jpg" alt="london">
+            <p> Hyde Park</p>
+        </div>
+        <div class="gallery-item" data-keywords="london">
+            <img src="https://i.pinimg.com/564x/df/f1/b6/dff1b67a5134b7f1ef63e353e2f7b8bd.jpg" alt="london">
+            <p>tower brige</p>
+        </div>
+        <div class="gallery-item" data-keywords="bali">
+            <img src="https://i.pinimg.com/564x/a7/62/e6/a762e68269218daec604db6c5a64e063.jpg" alt="Bali">
+            <p>Canggu</p>
+        </div>
+        <div class="gallery-item" data-keywords="bali">
+            <img src="https://i.pinimg.com/564x/95/19/c9/9519c91a5bd42817cbd99e2c6b33bad8.jpg" alt="Bali">
+            <p>Sanur</p>
+        </div>
+        <div class="gallery-item" data-keywords="bali">
+            <img src="https://i.pinimg.com/564x/fc/c9/3c/fcc93c2ab3e4238f02eb61e258a2d7a9.jpg" alt="Bali">
+            <p>North Bali</p>
+        </div>
+        <div class="gallery-item" data-keywords="bali">
+            <img src="https://i.pinimg.com/564x/79/d0/a0/79d0a0a68b7482f149904d1e6b4d9c8a.jpg" alt="Bali">
+            <p>Uluwatu</p>
+        </div>
+        <div class="gallery-item" data-keywords="ooty">
+            <img src="https://i.pinimg.com/564x/0c/f5/26/0cf526869ec3c4af45360f296d4e73b1.jpg" alt="ooty">
+            <p>Doddabetta Peak</p>
+        </div>
+        <div class="gallery-item" data-keywords="ooty">
+            <img src="https://i.pinimg.com/564x/86/8b/19/868b197e73756c55b483728421e58135.jpg" alt="ooty">
+            <p>Tea Museum</p>
+        </div><div class="gallery-item" data-keywords="ooty">
+            <img src="https://i.pinimg.com/564x/69/1f/1a/691f1a642b4dadd98f1eab711603beb4.jpg" alt="ooty">
+            <p>Botanical Garden</p>
+        </div><div class="gallery-item" data-keywords="ooty">
+            <img src="https://i.pinimg.com/564x/09/de/30/09de3005aa03fb6c78fc549d6b172da6.jpg" alt="ooty">
+            <p>Mudumalai </p>
+        </div>
+        <div class="gallery-item" data-keywords="kerala">
+            <img src="https://i.pinimg.com/564x/5e/15/ff/5e15ffd80196c19a605bd8e658fbc00b.jpg" alt="kerala">
+            <p> mountain ranges</p>
+        </div>
+        <div class="gallery-item" data-keywords="kerala">
+            <img src="https://i.pinimg.com/564x/fe/dd/c2/feddc2ee3d3a471dc0c636daaab0e5d0.jpg" alt="kerala">
+            <p>Munnar</p>
+        </div> <div class="gallery-item" data-keywords="kerala">
+            <img src="https://i.pinimg.com/564x/4b/52/70/4b5270d4de8a565cdb60834ad2610e8a.jpg" alt="kerala">
+            <p>Lighthouse Beach</p>
+        </div> <div class="gallery-item" data-keywords="kerala">
+            <img src="https://i.pinimg.com/564x/ab/7c/ce/ab7cce9a968880093db13527e56d7a2a.jpg" alt="kerala">
+            <p>Mattancherry Palace</p>
+        </div>
+        
+        
+    </div>
+
+    <p id="noResult" class="no-result">No results found.</p>
+
+    <script>
+        // Function to filter images
+        function filterImages() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            let hasResult = false;
+
+            galleryItems.forEach(item => {
+                const keywords = item.getAttribute('data-keywords').toLowerCase();
+
+                // Display items that include the search term
+                if (keywords.includes(input)) {
+                    item.style.display = "block"; // Show matching images
+                    hasResult = true;
+                } else {
+                    item.style.display = "none"; // Hide non-matching images
+                }
+            });
+
+            // If no results found, show the "No results" message
+            document.getElementById('noResult').style.display = hasResult ? "none" : "block";
+        }
+
+        // Show all images by default when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.style.display = "block"; // Show all items
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+  
